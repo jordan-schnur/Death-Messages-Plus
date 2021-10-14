@@ -1,0 +1,7 @@
+name: Death Messages Plus
+version: '${project.version}'
+main: com.jordanschnur.deathmessagesplus.DeathMessagesPlusMain
+api-version: 1.17
+authors: [ JordanSchnur ]
+description: Custom death messages in Minecraft
+website: jordanschnur.com
