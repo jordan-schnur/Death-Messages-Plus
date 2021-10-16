@@ -24,7 +24,7 @@ public final class DeathMessagesPlusMain extends JavaPlugin {
 
         logger.info("Starting search");
         logger.info(DynamicHandlerInterface.class.toString());
-        ServiceLoader<DynamicHandlerInterface> handlers = ServiceLoader.load(DynamicHandlerInterface.class);
+        ServiceLoader<DynamicHandlerInterface> handlers = ServiceLoader.load(DynamicHandlerInterface.class, getClassLoader());
         logger.info(String.valueOf(Iterators.size(handlers.iterator())));
         for(DynamicHandlerInterface handler : handlers) {
             logger.info("FOund class");
@@ -50,12 +50,13 @@ public final class DeathMessagesPlusMain extends JavaPlugin {
 
         try {
             getConfig().load(new File(getDataFolder(), "config.yml"));
-            logger.info(getConfig().getString("was-pricked-to-death"));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InvalidConfigurationException e) {
             e.printStackTrace();
         }
+
+        logger.info(getConfig().getStringList("arrows.shotby.using").toString());
 
     }
 

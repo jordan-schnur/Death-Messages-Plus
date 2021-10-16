@@ -168,3 +168,6 @@ was-pummeled-by: '%player% was pummeled by %killer%'
 
 arrows.shotby: '%player% was shot by %killer%'
 arrows.shotby.using: '%player% was shot by %killer% using %item'
+arrows.shotby.bob:
+  - 'Hello, World'
+  - 'Hello, World2'
