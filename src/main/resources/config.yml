@@ -1,0 +1,170 @@
+#--------------Welcome to the Death Messages Plus config file.--------------#
+
+# This is a very easy to configure file. There are a things keys you need to know thought.
+
+# %player% Is the player who died. IE: itunes89 died
+# %world% The world the user died in. IE: itunes89 died in the world: world_the_end
+# %displayname% This is the users display name. IE: Owner itunes89 died.
+# %killer% Is the killer. This can be a mob or a player depending on the message. IE: itunes89 was slain by skipperguy12 or itunes89 was slain by a zombie
+# %weapon% This is the object used to kill the player. This will only be used in the PvP section.(Lines 44)
+
+# Example: '&b%player% was murdered by %killer% with a powerful %weapon% in %world%.' --> V
+# (All in aqua) itunes89 was murdered by skipperguy12 with a powerful Diamond Sword in World.
+
+# Easy right! Now for color codes the fun part!
+
+#--------------All color/style codes--------------#
+# To see what the colors look like check this out: http:www.minecraftwiki.netwikiFormatting_codes#Color_codes
+
+# &b = Aqua 
+# &0 = Black
+# &l = Bold
+# &3 = Dark Aqua
+# &1 = Dark Blue
+# &8 = Dark Gray 
+# &2  = Dark Green
+# &4 = Dark Red
+# &6 = Gold
+# &7 = Gray
+# &a = Green
+# &o = Italic
+# &k = Random character(s)
+# &c = Red
+# &r = Reset 	WARNING: If you have &r%player% &resetdied by %killer% Everything after the reset will be back the basic color.
+# &m = Strike
+# &n = Underline
+# &f = White
+# &e = Yellow
+
+# This allows for huge customizability!
+# So with this, lets begin!
+
+#--------------Anvil--------------#
+
+#Was squashed by a falling anvil - Caused when a anvil kills you
+was-squashed-by-a-falling-anvil: '%player% was squashed by a falling anvil'
+
+#--------------Cactus--------------#
+
+#Was pricked to death
+was-pricked-to-death: '%player% was pricked to death'
+######################################################
+#Walked into a cactus while trying to escape
+was-pricked-to-death: '%player% walked into a cactus while trying to escape %killer%'
+
+#--------------Dispenser when using arrows--------------#
+
+#Was shot by arrow - Dispenser when using arrows
+was-shot-by-arrow: '%player% was shot by a arrow'
+
+#--------------Drowning--------------#
+
+#Drowned - Fired when a player dies because of air loss
+drowned: '%player% drowned'
+
+#--------------Explosion--------------#
+
+#Blew up - Creepers, Ghasts and TNT cause this message.
+blew-up: '%player% blew up!'
+######################################################
+#Was blown up by creeper
+was-blown-up-by-creeper: '%player% was blown up by creeper!'
+
+#--------------Failling--------------#
+
+#Hit the ground too hard
+hit-the-ground-too-hard: '%player% hit the ground too hard'
+######################################################
+#Fell off a ladder
+fell-off-a-ladder: '%player% fell off a ladder'
+######################################################
+#Fell off some vines
+fell-off-some-vines: '%player% fell off some vines'
+######################################################
+#Fell out of the water
+fell-out-of-the-water: '%player% fell out of the water'
+######################################################
+#Fell from a high place
+fell-from-a-high-place: '%player% fell from a high place'
+######################################################
+#Fell into a patch of fire
+fell-into-a-patch-of-fire: '%player% fell into a patch of fire'
+######################################################
+#Fell into a patch of cacti
+fell-into-a-patch-of-cacti: '%player% fell into a patch of cacti'
+######################################################
+#Was doomed to fall
+was-doomed-to-fall: '%player% was doomed to fall'
+
+#--------------Fire--------------#
+
+#Went up in flames
+went-up-in-flames: '&c%player% went up in flames' 
+######################################################
+#Burned to death - I'm not sure what difference if, I know there is one though.
+burned-to-death: '&c%player% burned to death'
+#Was burnt to a crisp whilst fighting
+burned-to-death: 'was burnt to a crisp whilst fighting'
+#Walked-into-a-fire-whilst-fighting
+burned-to-death: '%player% walked-into-a-fire-whilst-fighting'
+
+#--------------Player versus Player (PvP)--------------#
+
+#Was slain by
+was-slain-by: '%player% was slain by %killer%'
+#Was shot by - Only happens for kills using a bow
+was-shot-by: '%player% was shot by %killer%'
+#Was killed by  - Only happens for kills using a splash potion
+was-killed-by: '%player% was shot by %killer%'
+
+#--------------Hostile Mobs--------------#
+
+#Was slain by - Remember these are caused by mobs, not people.
+was-slain-by-mob: '%player% was slain by %killer%'
+
+#Was shot by - Only caused by mobs with projectile attacks
+was-shot-by-mob: '%player% was shot by %killer%'
+
+#Was fireballed by - Only caused by Blazes and Ghasts
+was-fireballed-by-mob: '%player% was fireballed by %killer%'
+
+#Was killed by  - Only caused by Witches
+was-killed-by-mob: '%player% was killed by %killer%'
+
+
+
+#--------------Random deaths--------------#
+
+#Fell out of the world
+fell-out-of-world: '%player% fell out of the world'
+
+#Tried to swim in lava
+tried-to-swin-in-lava: '&c%player% tried to swim in lava..'
+
+#Was killed by magic - Potion of Harming - When shot from a dispenser
+was-killed-by-magic: '%player% was killed by magic'
+
+#Suffocated in a wall 
+suffocated-in-a-wall: '%player% suffocated in a wall'
+
+
+
+#Starved to death
+starved-to-death: '%player% starved to death'
+
+
+
+#Died Other (Also caused by kill command)
+died: '%player% died in world %world%'
+
+#Withered away - Caused by withers
+withered-away: '%player% withered away'
+
+#Was killed while trying to hurt - Thorns Enchantment - Only caused by mobs that can wear armor
+was-killed-while-trying-to-hurt: '%player% was killed while trying to hurt %killer%'
+
+#Was pummeled by - Happens when killed by a Snowball, a Chicken Egg or an Ender Pearl
+was-pummeled-by: '%player% was pummeled by %killer%'
+
+arrows.shotby: '%player% was shot by %killer%'
+arrows.shotby.using: '%player% was shot by %killer% using %item'
