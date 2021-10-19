@@ -1,17 +1,17 @@
 package com.jordanschnur.deathmessagesplus.handlers;
 
+import org.bukkit.entity.Creeper;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
-public class EntityAttackEntityHandler extends AbstractDeathHandler {
+public class BlockExplosionHandler extends AbstractDeathHandler {
 
-    @Override
     public EntityDamageEvent.DamageCause getType() {
-        return EntityDamageEvent.DamageCause.ENTITY_ATTACK;
+        return EntityDamageEvent.DamageCause.BLOCK_EXPLOSION;
     }
 
     @Override
     public String constructDeathMessage(PlayerDeathEvent p) {
-        return "Entity Death";
+        return "Block explosion";
     }
 }

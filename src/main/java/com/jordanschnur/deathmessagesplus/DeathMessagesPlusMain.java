@@ -1,19 +1,25 @@
 package com.jordanschnur.deathmessagesplus;
 
-import com.google.common.collect.Iterators;
+import com.jordanschnur.deathmessagesplus.exception.HandlerNotFound;
+import com.jordanschnur.deathmessagesplus.handlers.AbstractDeathHandler;
 import com.jordanschnur.deathmessagesplus.handlers.DynamicHandlerInterface;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.event.HandlerList;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.ServiceLoader;
 import java.util.logging.Logger;
 
 public final class DeathMessagesPlusMain extends JavaPlugin {
 
     private static Logger logger;
+    private static HashMap<EntityDamageEvent.DamageCause, AbstractDeathHandler> handlers = new HashMap<EntityDamageEvent.DamageCause, AbstractDeathHandler>();
+    private static FileConfiguration configuration;
 
     @Override
     public void onEnable() {
@@ -23,12 +29,13 @@ public final class DeathMessagesPlusMain extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new DeathListener(), this);
 
         logger.info("Starting search");
-        logger.info(DynamicHandlerInterface.class.toString());
-        ServiceLoader<DynamicHandlerInterface> handlers = ServiceLoader.load(DynamicHandlerInterface.class, getClassLoader());
-        logger.info(String.valueOf(Iterators.size(handlers.iterator())));
-        for(DynamicHandlerInterface handler : handlers) {
-            logger.info("FOund class");
-            logger.info(handler.getType().name());
+        logger.info(AbstractDeathHandler.class.toString());
+        ServiceLoader<AbstractDeathHandler> handlers = ServiceLoader.load(AbstractDeathHandler.class, getClassLoader());
+
+        for (AbstractDeathHandler handler : handlers) {
+            DeathMessagesPlusMain.handlers.put(handler.getType(), handler);
+            //TODO: Remove this log
+            logger.info("Registering " + handler.getType().name() + " handler.");
         }
         logger.info("Finished Search");
 
@@ -67,5 +74,19 @@ public final class DeathMessagesPlusMain extends JavaPlugin {
 
     public static Logger getPluginLogger() {
         return DeathMessagesPlusMain.logger;
+    }
+
+    public static AbstractDeathHandler getHandler(EntityDamageEvent.DamageCause cause) throws Exception {
+        AbstractDeathHandler handler = DeathMessagesPlusMain.handlers.get(cause);
+        if (handler == null) {
+            DeathMessagesPlusMain.getPluginLogger().info("Failed to find " + cause.name());
+            throw new HandlerNotFound();
+        }
+
+        return handler;
+    }
+
+    public static FileConfiguration getConfiguration() {
+        return DeathMessagesPlusMain.configuration;
     }
 }
