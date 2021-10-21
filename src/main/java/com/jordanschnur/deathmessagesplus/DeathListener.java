@@ -27,7 +27,7 @@ public final class DeathListener implements Listener {
         LoggingContext loggingContext = new LoggingContext();
         loggingContext.addContext("Player", e.getEntity().getDisplayName());
         loggingContext.addContext("Last Damage", lastDamage.getCause());
-        loggingContext.addContext("Last Damage entity", lastDamage.getEntityType());
+        loggingContext.addContext("Last Damage entity_type", lastDamage.getEntityType());
         loggingContext.addContext("Default Death message", e.getDeathMessage());
 
         if (e.getEntity().getKiller() != null) {
@@ -62,8 +62,6 @@ public final class DeathListener implements Listener {
             }
 
         }
-
-
 
         if (lastDamage != null) {
             try {
