@@ -3,6 +3,8 @@ package com.jordanschnur.deathmessagesplus;
 import com.jordanschnur.deathmessagesplus.exception.HandlerNotFound;
 import com.jordanschnur.deathmessagesplus.handlers.AbstractDeathHandler;
 import com.jordanschnur.deathmessagesplus.handlers.DynamicHandlerInterface;
+import com.jordanschnur.deathmessagesplus.logging.DMPLogger;
+import com.jordanschnur.deathmessagesplus.logging.LoggingContext;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.HandlerList;
@@ -12,6 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.logging.Logger;
 
@@ -20,6 +23,8 @@ public final class DeathMessagesPlusMain extends JavaPlugin {
     private static Logger logger;
     private static HashMap<EntityDamageEvent.DamageCause, AbstractDeathHandler> handlers = new HashMap<EntityDamageEvent.DamageCause, AbstractDeathHandler>();
     private static FileConfiguration configuration;
+    private static DMPLogger dmpLogger;
+    private boolean debugMode = false;
 
     @Override
     public void onEnable() {
@@ -28,8 +33,6 @@ public final class DeathMessagesPlusMain extends JavaPlugin {
         DeathMessagesPlusMain.logger = this.getLogger();
         getServer().getPluginManager().registerEvents(new DeathListener(), this);
 
-        logger.info("Starting search");
-        logger.info(AbstractDeathHandler.class.toString());
         ServiceLoader<AbstractDeathHandler> handlers = ServiceLoader.load(AbstractDeathHandler.class, getClassLoader());
 
         for (AbstractDeathHandler handler : handlers) {
@@ -37,9 +40,6 @@ public final class DeathMessagesPlusMain extends JavaPlugin {
             //TODO: Remove this log
             logger.info("Registering " + handler.getType().name() + " handler.");
         }
-        logger.info("Finished Search");
-
-        this.getLogger().info("Starting Death Messages Plus");
 
         if(!getDataFolder().exists()) {
             this.getLogger().info("No configuration found for Death Messages Plus. Creating it.");
@@ -63,13 +63,31 @@ public final class DeathMessagesPlusMain extends JavaPlugin {
             e.printStackTrace();
         }
 
-        logger.info(getConfig().getStringList("arrows.shotby.using").toString());
+        this.debugMode = getConfig().getBoolean("dmp.debug");
+
+        if (getConfig().getBoolean("dmp.deaths-logging") || this.debugMode) {
+            try {
+                DeathMessagesPlusMain.dmpLogger = new DMPLogger(this);
+            } catch (IOException e) {
+                getLogger().warning("Running Death Messages Plus without logging.");
+            }
+        }
+
+        if (this.debugMode) {
+           dmpLogger.logToFile("Starting DMP in debug mode.");
+            this.getLogger().info("Starting DMP in debug mode.");
+        }
+
+        this.getLogger().info("Starting Death Messages Plus");
 
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+
+        if (dmpLogger != null) {
+            dmpLogger.close();
+        }
     }
 
     public static Logger getPluginLogger() {
@@ -88,5 +106,13 @@ public final class DeathMessagesPlusMain extends JavaPlugin {
 
     public static FileConfiguration getConfiguration() {
         return DeathMessagesPlusMain.configuration;
+    }
+
+    public static DMPLogger getDmpLogger() {
+        return dmpLogger;
+    }
+
+    public boolean isDebugMode() {
+        return debugMode;
     }
 }

@@ -1,6 +1,8 @@
 package com.jordanschnur.deathmessagesplus;
 
-import com.jordanschnur.deathmessagesplus.exception.HandlerNotFound;
+import com.jordanschnur.deathmessagesplus.logging.DMPLogger;
+import com.jordanschnur.deathmessagesplus.logging.LoggingContext;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -16,25 +18,65 @@ public final class DeathListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent e) {
         Logger logger = DeathMessagesPlusMain.getPluginLogger();
 
-        logger.info("Player death: " + e.getEntity().toString() + " Cause: " + e.getEntity().getLastDamageCause() + e.getEntity().getLastDamageCause().getEntity().getName());
-
         if (!(e.getEntity() instanceof Player)) { // Don't know if this can occur, but best to check
             return;
         }
 
         EntityDamageEvent lastDamage = e.getEntity().getLastDamageCause();
 
-        logger.info("Played death.");
+        LoggingContext loggingContext = new LoggingContext();
+        loggingContext.addContext("Player", e.getEntity().getDisplayName());
+        loggingContext.addContext("Last Damage", lastDamage.getCause());
+        loggingContext.addContext("Last Damage entity", lastDamage.getEntityType());
+        loggingContext.addContext("Default Death message", e.getDeathMessage());
+
+        if (e.getEntity().getKiller() != null) {
+            loggingContext.addContext("Killer Player: ", e.getEntity().getKiller().getDisplayName());
+        }
+
+        if (lastDamage.getEntity() != null) {
+
+            if (lastDamage.getEntity() instanceof LivingEntity) {
+                LivingEntity l = (LivingEntity) lastDamage.getEntity();
+                loggingContext.addContext("Living Entity: ", l.getName());
+
+                if (l.getEquipment() != null && (l.getEquipment().getItemInMainHand() != null || l.getEquipment().getItemInOffHand() != null)) {
+                    if (l.getEquipment().getItemInOffHand() != null) {
+                        if(l.getEquipment().getItemInOffHand().hasItemMeta()) {
+                            loggingContext.addContext("Killer Item Off Hand Meta: ", l.getEquipment().getItemInOffHand().getItemMeta().getDisplayName());
+                        } else {
+                            loggingContext.addContext("Killer Item Off Hand: ", l.getEquipment().getItemInOffHand().getType().toString());
+                        }
+                    }
+
+                    if (l.getEquipment().getItemInMainHand() != null) {
+                        if(l.getEquipment().getItemInMainHand().hasItemMeta()) {
+                            loggingContext.addContext("Killer Item Main Hand Meta: ", l.getEquipment().getItemInMainHand().getItemMeta().getDisplayName());
+                        } else {
+                            loggingContext.addContext("Killer Item Main Hand: ", l.getEquipment().getItemInMainHand().getType().toString());
+                        }
+                    }
+                }
+            } else {
+                loggingContext.addContext("Entity: ", lastDamage.getEntity().getName());
+            }
+
+        }
+
+
 
         if (lastDamage != null) {
             try {
-                e.setDeathMessage(DeathMessagesPlusMain.getHandler(lastDamage.getCause()).getDeathMessage(e, DeathMessagesPlusMain.getConfiguration()));
+                String newDeathMessage = DeathMessagesPlusMain.getHandler(lastDamage.getCause()).getDeathMessage(e, DeathMessagesPlusMain.getConfiguration());
+                e.setDeathMessage(newDeathMessage);
+                DeathMessagesPlusMain.getDmpLogger().logToFile(newDeathMessage, loggingContext);
             } catch (Exception exception) {
+                DeathMessagesPlusMain.getDmpLogger().logToFile("Handler Not Found", loggingContext);
                 exception.printStackTrace();
             }
 
         } else {
-            // Deal with cases where EntityDamageEvent is null
+            DeathMessagesPlusMain.getDmpLogger().logToFile("Last Damage was null", loggingContext);
         }
     }
 

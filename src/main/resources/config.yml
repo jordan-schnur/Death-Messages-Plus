@@ -36,6 +36,12 @@
 # &f = White
 # &e = Yellow
 
+# Log player deaths in a file
+dmp.deaths-logging: true
+# Used for DMP's development
+dmp.debug: true
+dmp.yaml-version: 0
+
 arrows.shot.by: "%player% was shot by %killer%"
 arrows.shot.using: "%player% was shot by %killer% using %item"
 snowballs.pummeled: "%player% was pummeled by %killer%"
@@ -46,10 +52,10 @@ drowning: "%player% drowned"
 downing.escape: "%player% drowned whilst trying to escape %killer%"
 elytra.hit-wall: "%player% experienced kinetic energy"
 elytra.hit-wall.escape: "%player% experienced kinetic energy whilst trying to escape %killer%"
-explosions.blew-up.default: "%player% blew up"
-explosions.blew-up.by: "%player% was blown up by %killer%"
-explosions.blew-up.using: "%player% was blown up by %killer% using %item%"
-explosions.blew-up.game-design: "%player% was killed by [Intentional Game Design]"
+explosion.default: "%player% blew up"
+explosion.by: "%player% was blown up by %killer%"
+explosion.using: "%player% was blown up by %killer% using %item%"
+explosion.game-design: "%player% was killed by [Intentional Game Design]"
 falling.default.small: "%player% hit the ground too hard"
 falling.escape: "%player% hit the ground too hard whilst trying to escape %killer%"
 falling.default.large: "%player% fell from a high place"
