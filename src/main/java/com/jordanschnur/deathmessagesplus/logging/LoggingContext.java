@@ -13,6 +13,10 @@ public class LoggingContext {
     }
 
     public String formatContext() {
+        if (context.isEmpty()) {
+            return "";
+        }
+
         StringBuilder output = new StringBuilder();
         output.append("  {\n");
         for (Map.Entry<String, String> entry : context.entrySet()) {
