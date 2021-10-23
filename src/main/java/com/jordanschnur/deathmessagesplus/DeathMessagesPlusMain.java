@@ -9,7 +9,9 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.java.JavaPluginLoader;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,13 +20,21 @@ import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.logging.Logger;
 
-public final class DeathMessagesPlusMain extends JavaPlugin {
+public class DeathMessagesPlusMain extends JavaPlugin {
 
     private static Logger logger;
     private static HashMap<EntityDamageEvent.DamageCause, AbstractDeathHandler> handlers = new HashMap<EntityDamageEvent.DamageCause, AbstractDeathHandler>();
     private static FileConfiguration configuration;
     private static DMPLogger dmpLogger;
     private boolean debugMode = false;
+
+    public DeathMessagesPlusMain() {
+        super();
+    }
+
+    public DeathMessagesPlusMain(JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
+        super(loader, description, dataFolder, file);
+    }
 
     @Override
     public void onEnable() {
