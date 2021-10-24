@@ -41,7 +41,7 @@ public class DeathMessagesPlusMain extends JavaPlugin {
         // Plugin startup logic
 
         DeathMessagesPlusMain.logger = this.getLogger();
-        getServer().getPluginManager().registerEvents(new DeathListener(), this);
+
 
         ServiceLoader<AbstractDeathHandler> handlers = ServiceLoader.load(AbstractDeathHandler.class, getClassLoader());
 
@@ -51,6 +51,8 @@ public class DeathMessagesPlusMain extends JavaPlugin {
             logger.info("Registering " + handler.getType().name() + " handler.");
         }
 
+        logger.info("Loading...3");
+
         if(!getDataFolder().exists()) {
             this.getLogger().info("No configuration found for Death Messages Plus. Creating it.");
             try {
@@ -59,8 +61,9 @@ public class DeathMessagesPlusMain extends JavaPlugin {
                 e.printStackTrace();
             }
 
-            File dataFolder = this.getDataFolder();
-
+            getConfig().options().copyDefaults(true);
+            saveConfig();
+        } else if(!(new File(getDataFolder(), "config.yml").exists())) {
             getConfig().options().copyDefaults(true);
             saveConfig();
         }
@@ -73,11 +76,13 @@ public class DeathMessagesPlusMain extends JavaPlugin {
             e.printStackTrace();
         }
 
+        DeathMessagesPlusMain.configuration = this.getConfig();
+
         this.debugMode = getConfig().getBoolean("dmp.debug");
 
         if (getConfig().getBoolean("dmp.deaths-logging") || this.debugMode) {
             try {
-                DeathMessagesPlusMain.dmpLogger = new DMPLogger(this);
+                DeathMessagesPlusMain.dmpLogger = new DMPLogger(getDataFolder(), getPluginLogger(), true);
             } catch (IOException e) {
                 getLogger().warning("Running Death Messages Plus without logging.");
             }
@@ -89,6 +94,9 @@ public class DeathMessagesPlusMain extends JavaPlugin {
         }
 
         this.getLogger().info("Starting Death Messages Plus");
+
+        getServer().getPluginManager().registerEvents(new DeathListener(), this);
+        getServer().getPluginManager().registerEvents(new RespawnListener(this), this);
 
     }
 

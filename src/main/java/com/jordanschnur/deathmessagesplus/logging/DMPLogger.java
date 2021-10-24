@@ -8,22 +8,24 @@ import java.sql.Timestamp;
 import java.util.logging.Level;
 
 import com.jordanschnur.deathmessagesplus.DeathMessagesPlusMain;
-import org.bukkit.plugin.Plugin;
 
 import java.io.File;
+import java.util.logging.Logger;
 
 public class DMPLogger {
-    private DeathMessagesPlusMain plugin;
     private File dataFolder;
     private File logFile;
     private FileWriter fileWriter;
     private PrintWriter printWriter;
     private LoggingContext context;
+    private Logger pluginLogger;
+    private boolean isDebugMode;
 
-    public DMPLogger(DeathMessagesPlusMain plugin) throws IOException {
-        this.plugin = plugin;
+    public DMPLogger(File dataFolder, Logger pluginLogger, boolean isDebugMode) throws IOException {
+        this.pluginLogger = pluginLogger;
+        this.dataFolder = dataFolder;
+        this.isDebugMode = isDebugMode;
 
-        this.dataFolder = this.plugin.getDataFolder();
         if (!this.dataFolder.exists()) {
             this.dataFolder.mkdir();
         }
@@ -33,7 +35,7 @@ public class DMPLogger {
             try {
                 this.logFile.createNewFile();
             } catch (Throwable e) {
-                plugin.getLogger().logp(
+                this.pluginLogger.logp(
                         Level.SEVERE,
                         DMPLogger.class.toString(),
                         "DMPLogger",
@@ -58,8 +60,8 @@ public class DMPLogger {
                     .append(this.context.formatContext());
         }
 
-        if (plugin.isDebugMode()) {
-            DeathMessagesPlusMain.getPluginLogger().info(output.toString());
+        if (this.isDebugMode) {
+            this.pluginLogger.info(output.toString());
         }
 
         this.printWriter.println(output.toString());
@@ -72,8 +74,8 @@ public class DMPLogger {
                 .append('\n')
                 .append(customContext.formatContext());
 
-        if (plugin.isDebugMode()) {
-            DeathMessagesPlusMain.getPluginLogger().info(output.toString());
+        if (this.isDebugMode) {
+            this.pluginLogger.info(output.toString());
         }
 
         this.printWriter.println(output.toString());

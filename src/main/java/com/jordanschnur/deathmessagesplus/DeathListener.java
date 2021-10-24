@@ -6,6 +6,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByBlockEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -29,6 +30,17 @@ public final class DeathListener implements Listener {
         loggingContext.addContext("Last Damage", lastDamage.getCause());
         loggingContext.addContext("Last Damage entity_type", lastDamage.getEntityType());
         loggingContext.addContext("Default Death message", e.getDeathMessage());
+
+        if (lastDamage instanceof EntityDamageByBlockEvent) {
+            loggingContext.addContext("Damager Block Type", ((EntityDamageByBlockEvent) lastDamage).getDamager().getType());
+            loggingContext.addContext("ClassType", EntityDamageByBlockEvent.class);
+        } else if(lastDamage instanceof EntityDamageByEntityEvent) {
+            loggingContext.addContext("Damager Entity Type", ((EntityDamageByEntityEvent) lastDamage).getDamager().getType());
+            loggingContext.addContext("Damager Entity Name", ((EntityDamageByEntityEvent) lastDamage).getDamager().getName());
+            loggingContext.addContext("ClassType", EntityDamageByEntityEvent.class);
+        } else {
+            loggingContext.addContext("ClassType", lastDamage.getClass());
+        }
 
         if (e.getEntity().getKiller() != null) {
             loggingContext.addContext("Killer Player: ", e.getEntity().getKiller().getDisplayName());
