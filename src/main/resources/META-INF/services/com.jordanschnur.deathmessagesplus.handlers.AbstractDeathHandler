@@ -1,3 +1,4 @@
 com.jordanschnur.deathmessagesplus.handlers.EntityDeathExplosionHandler
 com.jordanschnur.deathmessagesplus.handlers.EntityAttackEntityHandler
 com.jordanschnur.deathmessagesplus.handlers.FallHandler
+com.jordanschnur.deathmessagesplus.handlers.LavaHandler

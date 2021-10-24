@@ -17,7 +17,7 @@ public class RespawnListener implements Listener {
     @EventHandler
     public void onRespawn(PlayerRespawnEvent p) {
         if (isDebugMode) {
-            p.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(0.5);
+            p.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(5);
             p.getPlayer().setGameMode(GameMode.CREATIVE);
         }
     }

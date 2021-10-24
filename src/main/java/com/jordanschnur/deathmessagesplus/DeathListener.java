@@ -2,6 +2,7 @@ package com.jordanschnur.deathmessagesplus;
 
 import com.jordanschnur.deathmessagesplus.logging.DMPLogger;
 import com.jordanschnur.deathmessagesplus.logging.LoggingContext;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,9 +12,14 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 public final class DeathListener implements Listener {
+
+    private Map<UUID, Entity> damages = new HashMap<UUID, Entity>();
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
@@ -32,7 +38,11 @@ public final class DeathListener implements Listener {
         loggingContext.addContext("Default Death message", e.getDeathMessage());
 
         if (lastDamage instanceof EntityDamageByBlockEvent) {
-            loggingContext.addContext("Damager Block Type", ((EntityDamageByBlockEvent) lastDamage).getDamager().getType());
+            if (((EntityDamageByBlockEvent) lastDamage).getDamager() == null) {
+                loggingContext.addContext("Damager Null", "");
+            } else {
+                loggingContext.addContext("Damager Block Type", ((EntityDamageByBlockEvent) lastDamage).getDamager().getType());
+            }
             loggingContext.addContext("ClassType", EntityDamageByBlockEvent.class);
         } else if(lastDamage instanceof EntityDamageByEntityEvent) {
             loggingContext.addContext("Damager Entity Type", ((EntityDamageByEntityEvent) lastDamage).getDamager().getType());
@@ -92,18 +102,12 @@ public final class DeathListener implements Listener {
 
     @EventHandler
     public void onEntityDamage(EntityDamageByEntityEvent e) {
-        Logger logger = DeathMessagesPlusMain.getPluginLogger();
-
-        //logger.info("Entity damaged");
-
-        e.getEntity().getLastDamageCause();
-
-        if(e.getEntity() instanceof Player) {
-            //logger.info("Is instance of player");
-            Player p = (Player)e.getEntity();
-            //logger.info("health: " + p.getHealth());
-
-
+        if (e.getEntity() instanceof Player) {
+            if (this.damages.get(e.getEntity().getUniqueId()) == null) {
+                this.damages.put(e.getEntity().getUniqueId(), e.getDamager());
+            } else {
+                this.damages.replace(e.getEntity().getUniqueId(), e.getDamager());
+            }
         }
     }
 }
