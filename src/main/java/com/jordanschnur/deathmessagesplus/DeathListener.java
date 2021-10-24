@@ -1,6 +1,6 @@
 package com.jordanschnur.deathmessagesplus;
 
-import com.jordanschnur.deathmessagesplus.logging.DMPLogger;
+import com.jordanschnur.deathmessagesplus.deathcontext.DeathContext;
 import com.jordanschnur.deathmessagesplus.logging.LoggingContext;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 public final class DeathListener implements Listener {
 
-    private Map<UUID, Entity> damages = new HashMap<UUID, Entity>();
+    private Map<UUID, DeathContext> damages = new HashMap<UUID, DeathContext>();
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
@@ -87,7 +87,10 @@ public final class DeathListener implements Listener {
 
         if (lastDamage != null) {
             try {
-                String newDeathMessage = DeathMessagesPlusMain.getHandler(lastDamage.getCause()).getDeathMessage(e, DeathMessagesPlusMain.getConfiguration());
+                String newDeathMessage = DeathMessagesPlusMain.getHandler(lastDamage.getCause()).getDeathMessage(
+                        e,
+                        DeathMessagesPlusMain.getConfiguration(),
+                        this.damages.get(e.getEntity().getUniqueId()));
                 e.setDeathMessage(newDeathMessage);
                 DeathMessagesPlusMain.getDmpLogger().logToFile(newDeathMessage, loggingContext);
             } catch (Exception exception) {
@@ -103,10 +106,16 @@ public final class DeathListener implements Listener {
     @EventHandler
     public void onEntityDamage(EntityDamageByEntityEvent e) {
         if (e.getEntity() instanceof Player) {
+            DeathMessagesPlusMain.getPluginLogger().info("Player Damaged");
+            DeathMessagesPlusMain.getPluginLogger().info("Player Damage Cause: "+e.getCause());
+            if (e.getDamager() != null) {
+                DeathMessagesPlusMain.getPluginLogger().info("Damager");
+                DeathMessagesPlusMain.getPluginLogger().info("Damager Type: "+e.getDamager().getType());
+            }
             if (this.damages.get(e.getEntity().getUniqueId()) == null) {
-                this.damages.put(e.getEntity().getUniqueId(), e.getDamager());
+                this.damages.put(e.getEntity().getUniqueId(), new DeathContext(e.getEntity().getUniqueId(), e.getDamager().getUniqueId()));
             } else {
-                this.damages.replace(e.getEntity().getUniqueId(), e.getDamager());
+                this.damages.replace(e.getEntity().getUniqueId(), new DeathContext(e.getEntity().getUniqueId(), e.getDamager().getUniqueId()));
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.jordanschnur.deathmessagesplus.handlers;
 
 import com.jordanschnur.deathmessagesplus.DeathMessagesPlusMain;
+import com.jordanschnur.deathmessagesplus.deathcontext.DeathContext;
 import com.jordanschnur.deathmessagesplus.logging.LoggingContext;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -15,6 +16,7 @@ public abstract class AbstractDeathHandler implements DynamicHandlerInterface {
     protected Player deadPlayer;
     protected EntityDamageEvent lastDamage;
     private FileConfiguration configuration;
+    protected DeathContext deathContext;
     protected final String playerNamePattern = "%player%";
     protected final String killerNamePattern = "%killer%";
     protected final String itemName = "%item%";
@@ -23,11 +25,12 @@ public abstract class AbstractDeathHandler implements DynamicHandlerInterface {
 
     public AbstractDeathHandler() {}
 
-    public String getDeathMessage(PlayerDeathEvent p, FileConfiguration config) {
+    public String getDeathMessage(PlayerDeathEvent p, FileConfiguration config, DeathContext deathContext) {
         this.playerDeathEvent = p;
         this.deadPlayer = p.getEntity();
         this.lastDamage = p.getEntity().getLastDamageCause();
         this.configuration = config;
+        this.deathContext = deathContext;
 
         String deathMessage = this.constructDeathMessage(p);
 
