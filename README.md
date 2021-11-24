@@ -1,5 +1,10 @@
-# Death-Messages-Plus
-Custom Minecraft death messages
+# Death Messages Plus by Zyneak
+Customize the death messages of your Minecraft server. 
+
+Official release version hosted here https://www.curseforge.com/minecraft/bukkit-plugins/dmp
+
+I will move to spigot once version 2.0 is released.
+
 
 
 ## Todo
@@ -14,7 +19,7 @@ Custom Minecraft death messages
 - [ ] Falling blocks
 - [ ] Fire
 - [ ] Firework rockets
-- [ ] Lava
+- [x] Lava
 - [ ] Lightning
 - [ ] Magma Block
 - [ ] Magic
@@ -29,5 +34,10 @@ Custom Minecraft death messages
 - [ ] Wither effect
 - [ ] Generic Death
 ### Project
-- [ ] Add linter
-- [ ] Add unit test
+- [x] Add linter
+- [ ] Add ability to unit test
+- [ ] Add test coverage
+
+### Addition Reading
+https://minecraft.fandom.com/wiki/Death_messages
+https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html
