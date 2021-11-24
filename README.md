@@ -13,7 +13,7 @@ I will move to spigot once version 2.0 is released.
 - [ ] Snowballs
 - [x] Cactus
 - [x] Drowning
-- [ ] Elytra
+- [x] Elytra
 - [ ] Explosions
 - [ ] Falling
 - [ ] Falling blocks
