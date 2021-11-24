@@ -33,9 +33,9 @@ public abstract class AbstractDeathHandler implements DynamicHandlerInterface {
         this.configuration = config;
         this.deathContext = deathContext;
 
-        String deathMessage = this.constructDeathMessage(p);
-        deathMessage.replaceAll(worldNamePattern, p.getEntity().getWorld().getName());
-        deathMessage.replaceAll(playerNamePattern, p.getEntity().getName());
+        String deathMessage = this.constructDeathMessage(p)
+            .replaceAll(worldNamePattern, p.getEntity().getWorld().getName())
+            .replaceAll(playerNamePattern, p.getEntity().getName());
 
         return deathMessage;
     }
@@ -54,5 +54,9 @@ public abstract class AbstractDeathHandler implements DynamicHandlerInterface {
     private int getRandomIntRange(int min, int max) {
         // Inclusive min/max.
         return (new Random()).nextInt(max + 1 - min) + min;
+    }
+
+    protected boolean needsContext() {
+        return this.deathContext != null && this.deathContext.getTimeSinceEvent() < 1500;
     }
 }

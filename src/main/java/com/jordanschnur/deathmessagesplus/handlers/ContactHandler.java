@@ -3,19 +3,19 @@ package com.jordanschnur.deathmessagesplus.handlers;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
-public class LavaHandler extends AbstractDeathHandler {
+public class ContactHandler extends AbstractDeathHandler {
     @Override
     public String constructDeathMessage(PlayerDeathEvent p) {
 
         if (needsContext()) {
-            return this.getDeathMessageFormat("lava.escape")
+            return this.getDeathMessageFormat("cactus.escape")
                     .replaceAll(this.killerNamePattern, this.deathContext.getKiller().getName());
         }
 
 
-        return this.getDeathMessageFormat("lava.default");
+        return this.getDeathMessageFormat("cactus.default");
     }
 
     @Override
-    public EntityDamageEvent.DamageCause getType() { return EntityDamageEvent.DamageCause.LAVA; }
+    public EntityDamageEvent.DamageCause getType() { return EntityDamageEvent.DamageCause.CONTACT; }
 }
