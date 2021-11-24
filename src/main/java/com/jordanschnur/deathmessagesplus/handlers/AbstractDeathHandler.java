@@ -18,6 +18,7 @@ public abstract class AbstractDeathHandler implements DynamicHandlerInterface {
     private FileConfiguration configuration;
     protected DeathContext deathContext;
     protected final String playerNamePattern = "%player%";
+    protected final String worldNamePattern = "%world%";
     protected final String killerNamePattern = "%killer%";
     protected final String itemName = "%item%";
 
@@ -33,6 +34,8 @@ public abstract class AbstractDeathHandler implements DynamicHandlerInterface {
         this.deathContext = deathContext;
 
         String deathMessage = this.constructDeathMessage(p);
+        deathMessage.replaceAll(worldNamePattern, p.getEntity().getWorld().getName());
+        deathMessage.replaceAll(playerNamePattern, p.getEntity().getName());
 
         return deathMessage;
     }

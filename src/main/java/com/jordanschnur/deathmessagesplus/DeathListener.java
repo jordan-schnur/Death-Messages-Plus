@@ -5,6 +5,7 @@ import com.jordanschnur.deathmessagesplus.logging.LoggingContext;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByBlockEvent;
@@ -82,7 +83,6 @@ public final class DeathListener implements Listener {
             } else {
                 loggingContext.addContext("Entity: ", lastDamage.getEntity().getName());
             }
-
         }
 
         if (lastDamage != null) {
@@ -103,19 +103,34 @@ public final class DeathListener implements Listener {
         }
     }
 
+    //TODO: Map needs to be cleared when player leaves the server
+
     @EventHandler
     public void onEntityDamage(EntityDamageByEntityEvent e) {
         if (e.getEntity() instanceof Player) {
             DeathMessagesPlusMain.getPluginLogger().info("Player Damaged");
-            DeathMessagesPlusMain.getPluginLogger().info("Player Damage Cause: "+e.getCause());
+            DeathMessagesPlusMain.getPluginLogger().info("Player Damage Cause: " + e.getCause());
             if (e.getDamager() != null) {
                 DeathMessagesPlusMain.getPluginLogger().info("Damager");
-                DeathMessagesPlusMain.getPluginLogger().info("Damager Type: "+e.getDamager().getType());
-            }
-            if (this.damages.get(e.getEntity().getUniqueId()) == null) {
-                this.damages.put(e.getEntity().getUniqueId(), new DeathContext(e.getEntity().getUniqueId(), e.getDamager().getUniqueId()));
+                DeathMessagesPlusMain.getPluginLogger().info("Damager Type: " + e.getDamager().getType());
             } else {
-                this.damages.replace(e.getEntity().getUniqueId(), new DeathContext(e.getEntity().getUniqueId(), e.getDamager().getUniqueId()));
+                DeathMessagesPlusMain.getPluginLogger().info("Damager is null");
+            }
+
+            Entity damager = e.getDamager();
+            Player player = (Player) e.getEntity();
+            Projectile projectile = null;
+
+            // If getShooter() is a living entity we set damger to that entity and set projectile to the projectile
+            if (damager instanceof Projectile && ((Projectile) damager).getShooter() instanceof LivingEntity) {
+                projectile = (Projectile) damager;
+                damager = (Entity) ((Projectile) damager).getShooter();
+            }
+
+            if (this.damages.get(e.getEntity().getUniqueId()) == null) {
+                this.damages.put(e.getEntity().getUniqueId(), new DeathContext(player, damager, projectile));
+            } else {
+                this.damages.replace(e.getEntity().getUniqueId(), new DeathContext(player, damager, projectile));
             }
         }
     }
