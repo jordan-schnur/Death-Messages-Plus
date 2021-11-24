@@ -57,6 +57,6 @@ public abstract class AbstractDeathHandler implements DynamicHandlerInterface {
     }
 
     protected boolean needsContext() {
-        return this.deathContext != null && this.deathContext.getTimeSinceEvent() < 1500;
+        return this.deathContext != null && this.deathContext.getTimeSinceEvent() < 2500;
     }
 }
