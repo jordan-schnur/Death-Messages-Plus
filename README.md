@@ -26,7 +26,7 @@ I will move to spigot once version 2.0 is released.
 - [ ] Powered Snow
 - [ ] Player and mobs
 - [x] Starving
-- [ ] Suffocation
+- [x] Suffocation
 - [x] Sweet Berry Bushes
 - [ ] Thorns enchantment
 - [ ] Trident
