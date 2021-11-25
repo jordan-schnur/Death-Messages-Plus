@@ -27,7 +27,7 @@ I will move to spigot once version 2.0 is released.
 - [ ] Player and mobs
 - [x] Starving
 - [ ] Suffocation
-- [ ] Sweet Berry Bushes
+- [x] Sweet Berry Bushes
 - [ ] Thorns enchantment
 - [ ] Trident
 - [ ] Void

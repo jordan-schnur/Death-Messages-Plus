@@ -2,6 +2,7 @@ package com.jordanschnur.deathmessagesplus.handlers;
 
 import com.jordanschnur.deathmessagesplus.DeathMessagesPlusMain;
 import com.jordanschnur.deathmessagesplus.deathcontext.DeathContext;
+import com.jordanschnur.deathmessagesplus.exception.HandlerNotFound;
 import com.jordanschnur.deathmessagesplus.logging.LoggingContext;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -26,16 +27,23 @@ public abstract class AbstractDeathHandler implements DynamicHandlerInterface {
 
     public AbstractDeathHandler() {}
 
-    public String getDeathMessage(PlayerDeathEvent p, FileConfiguration config, DeathContext deathContext) {
+    public String getDeathMessage(PlayerDeathEvent p, FileConfiguration config, DeathContext deathContext) throws HandlerNotFound {
         this.playerDeathEvent = p;
         this.deadPlayer = p.getEntity();
         this.lastDamage = p.getEntity().getLastDamageCause();
         this.configuration = config;
         this.deathContext = deathContext;
 
-        String deathMessage = this.constructDeathMessage(p)
-            .replaceAll(worldNamePattern, p.getEntity().getWorld().getName())
-            .replaceAll(playerNamePattern, p.getEntity().getName());
+        String deathMessage = this.constructDeathMessage(p);
+
+        if(deathMessage == null) {
+            // If the constructDeathMessage returns null, a specific case to handle the death was not found.
+            throw new HandlerNotFound();
+        }
+
+        deathMessage = deathMessage
+                .replaceAll(worldNamePattern, p.getEntity().getWorld().getName())
+                .replaceAll(playerNamePattern, p.getEntity().getName());
 
         return deathMessage;
     }
