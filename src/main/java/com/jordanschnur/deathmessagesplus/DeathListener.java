@@ -39,6 +39,8 @@ public final class DeathListener implements Listener {
         loggingContext.addContext("Default Death message", e.getDeathMessage());
 
         if (lastDamage instanceof EntityDamageByBlockEvent) {
+            EntityDamageByBlockEvent blockDamage = (EntityDamageByBlockEvent) lastDamage;
+
             if (((EntityDamageByBlockEvent) lastDamage).getDamager() == null) {
                 loggingContext.addContext("Damager Null", "");
             } else {

@@ -1,8 +1,9 @@
 com.jordanschnur.deathmessagesplus.handlers.ContactHandler
 com.jordanschnur.deathmessagesplus.handlers.CrammingHandler
 com.jordanschnur.deathmessagesplus.handlers.DrowningHandler
-com.jordanschnur.deathmessagesplus.handlers.EntityDeathExplosionHandler
 com.jordanschnur.deathmessagesplus.handlers.EntityAttackEntityHandler
+com.jordanschnur.deathmessagesplus.handlers.EntityDeathExplosionHandler
+com.jordanschnur.deathmessagesplus.handlers.EntityExplosionHandler
 com.jordanschnur.deathmessagesplus.handlers.FallHandler
 com.jordanschnur.deathmessagesplus.handlers.FallingBlockHandler
 com.jordanschnur.deathmessagesplus.handlers.FlyIntoWallHandler

@@ -41,3 +41,4 @@ I will move to spigot once version 2.0 is released.
 ### Addition Reading
 https://minecraft.fandom.com/wiki/Death_messages
 https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html
+https://www.youtube.com/watch?v=MqYmS3L49wo
