@@ -17,13 +17,13 @@ I will move to spigot once version 2.0 is released.
 - [ ] Explosions
 - [ ] Falling
 - [x] Falling blocks
-- [ ] Fire
+- [x] Fire
 - [ ] Firework rockets
 - [x] Lava
 - [ ] Lightning
 - [ ] Magma Block
 - [ ] Magic
-- [ ] Powered Snow
+- [x] Powered Snow
 - [ ] Player and mobs
 - [x] Starving
 - [x] Suffocation

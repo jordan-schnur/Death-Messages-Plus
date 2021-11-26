@@ -1,6 +1,5 @@
 package com.jordanschnur.deathmessagesplus.handlers;
 
-import org.bukkit.entity.Creeper;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
