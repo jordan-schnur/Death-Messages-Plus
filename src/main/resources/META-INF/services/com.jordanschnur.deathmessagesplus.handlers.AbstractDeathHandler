@@ -4,6 +4,7 @@ com.jordanschnur.deathmessagesplus.handlers.DrowningHandler
 com.jordanschnur.deathmessagesplus.handlers.EntityDeathExplosionHandler
 com.jordanschnur.deathmessagesplus.handlers.EntityAttackEntityHandler
 com.jordanschnur.deathmessagesplus.handlers.FallHandler
+com.jordanschnur.deathmessagesplus.handlers.FallingBlockHandler
 com.jordanschnur.deathmessagesplus.handlers.FlyIntoWallHandler
 com.jordanschnur.deathmessagesplus.handlers.LavaHandler
 com.jordanschnur.deathmessagesplus.handlers.StarvationHandler

@@ -16,7 +16,7 @@ I will move to spigot once version 2.0 is released.
 - [x] Elytra
 - [ ] Explosions
 - [ ] Falling
-- [ ] Falling blocks
+- [x] Falling blocks
 - [ ] Fire
 - [ ] Firework rockets
 - [x] Lava
@@ -35,7 +35,7 @@ I will move to spigot once version 2.0 is released.
 - [ ] Generic Death
 ### Project
 - [x] Add linter
-- [ ] Add ability to unit test
+- [x] Add ability to unit test
 - [ ] Add test coverage
 
 ### Addition Reading

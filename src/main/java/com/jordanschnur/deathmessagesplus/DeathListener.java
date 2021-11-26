@@ -46,8 +46,11 @@ public final class DeathListener implements Listener {
             }
             loggingContext.addContext("ClassType", EntityDamageByBlockEvent.class);
         } else if(lastDamage instanceof EntityDamageByEntityEvent) {
+            EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) lastDamage;
             loggingContext.addContext("Damager Entity Type", ((EntityDamageByEntityEvent) lastDamage).getDamager().getType());
             loggingContext.addContext("Damager Entity Name", ((EntityDamageByEntityEvent) lastDamage).getDamager().getName());
+            loggingContext.addContext("Damager Entity ID", ((EntityDamageByEntityEvent) lastDamage).getDamager().getEntityId());
+            loggingContext.addContext("Damager Entity Class", entityDamageByEntityEvent.getDamager().getClass());
             loggingContext.addContext("ClassType", EntityDamageByEntityEvent.class);
         } else {
             loggingContext.addContext("ClassType", lastDamage.getClass());
@@ -107,11 +110,10 @@ public final class DeathListener implements Listener {
 
     @EventHandler
     public void onEntityDamage(EntityDamageByEntityEvent e) {
-        if (e.getEntity() instanceof Player) {
+        if (e.getEntity() instanceof Player && e.getDamager() instanceof LivingEntity) {
             DeathMessagesPlusMain.getPluginLogger().info("Player Damaged");
             DeathMessagesPlusMain.getPluginLogger().info("Player Damage Cause: " + e.getCause());
             if (e.getDamager() != null) {
-                DeathMessagesPlusMain.getPluginLogger().info("Damager");
                 DeathMessagesPlusMain.getPluginLogger().info("Damager Type: " + e.getDamager().getType());
             } else {
                 DeathMessagesPlusMain.getPluginLogger().info("Damager is null");
