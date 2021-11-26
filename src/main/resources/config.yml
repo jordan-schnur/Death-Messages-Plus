@@ -42,8 +42,8 @@ dmp.deaths-logging: true
 dmp.debug: true
 dmp.yaml-version: 0
 
-arrows.shot.by: "%player% was shot by %killer%"
-arrows.shot.using: "%player% was shot by %killer% using %item"
+arrows.default: "%player% was shot by %killer%"
+arrows.using: "%player% was shot by %killer% using %item"
 snowballs.pummeled: "%player% was pummeled by %killer%"
 snowballs.pummeled.using: "%player% was pummeled by %killer% using %item%"
 cactus.default: "%player% was pricked to death"
@@ -116,7 +116,7 @@ tident.default.using: "%player% was impaled by %killer% with %item%"
 void.default: "%player% fell out of the world"
 void.default.by: "%player% didn't want to live in the same world as %killer%"
 wither.default: "%player% withered away"
-wither.default.by: "%player% withered away whilst fighting %killer%"
+wither.escape: "%player% withered away whilst fighting %killer%"
 drying-out.default: "%player% died from dehydration"
 drying-out.escape: "%player% died from dehydration whilst trying to escape %killer%"
 generic.default: "%player% died"

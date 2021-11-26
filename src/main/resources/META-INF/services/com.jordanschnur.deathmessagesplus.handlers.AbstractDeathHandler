@@ -10,5 +10,7 @@ com.jordanschnur.deathmessagesplus.handlers.FallHandler
 com.jordanschnur.deathmessagesplus.handlers.FallingBlockHandler
 com.jordanschnur.deathmessagesplus.handlers.FlyIntoWallHandler
 com.jordanschnur.deathmessagesplus.handlers.LavaHandler
+com.jordanschnur.deathmessagesplus.handlers.ProjectileHandler
 com.jordanschnur.deathmessagesplus.handlers.StarvationHandler
 com.jordanschnur.deathmessagesplus.handlers.SuffocationHandler
+com.jordanschnur.deathmessagesplus.handlers.WitherHandler

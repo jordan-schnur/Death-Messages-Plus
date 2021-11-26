@@ -31,7 +31,7 @@ I will move to spigot once version 2.0 is released.
 - [ ] Thorns enchantment
 - [ ] Trident
 - [ ] Void
-- [ ] Wither effect
+- [x] Wither effect
 - [ ] Generic Death
 ### Project
 - [x] Add linter
