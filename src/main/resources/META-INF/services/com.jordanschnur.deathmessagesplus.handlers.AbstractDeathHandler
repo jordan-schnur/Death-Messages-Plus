@@ -14,3 +14,4 @@ com.jordanschnur.deathmessagesplus.handlers.ProjectileHandler
 com.jordanschnur.deathmessagesplus.handlers.StarvationHandler
 com.jordanschnur.deathmessagesplus.handlers.SuffocationHandler
 com.jordanschnur.deathmessagesplus.handlers.WitherHandler
+com.jordanschnur.deathmessagesplus.handlers.VoidHandler

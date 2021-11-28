@@ -30,7 +30,7 @@ I will move to spigot once version 2.0 is released.
 - [x] Sweet Berry Bushes
 - [ ] Thorns enchantment
 - [ ] Trident
-- [ ] Void
+- [x] Void
 - [x] Wither effect
 - [ ] Generic Death
 ### Project
@@ -38,7 +38,8 @@ I will move to spigot once version 2.0 is released.
 - [x] Add ability to unit test
 - [ ] Add test coverage
 
-### Addition Reading
+### Resources Used
 https://minecraft.fandom.com/wiki/Death_messages
 https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html
 https://www.youtube.com/watch?v=MqYmS3L49wo
+https://www.summon-helper.net/

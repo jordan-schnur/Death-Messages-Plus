@@ -2,6 +2,7 @@ package com.jordanschnur.deathmessagesplus.handlers;
 
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Trident;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -19,6 +20,15 @@ public class ProjectileHandler extends AbstractDeathHandler {
                 LivingEntity shooter = (LivingEntity) a.getShooter();
 
                 return this.getDeathMessageFormat("arrows.default").replaceAll(killerNamePattern, ((LivingEntity) a.getShooter()).getName());
+            }
+        } if (e.getDamager() instanceof Trident) {
+            Trident a = (Trident) e.getDamager();
+
+            if (a.getShooter() instanceof LivingEntity) {
+
+                LivingEntity shooter = (LivingEntity) a.getShooter();
+
+                return this.getDeathMessageFormat("trident.default").replaceAll(killerNamePattern, ((LivingEntity) a.getShooter()).getName());
             }
         }
 
