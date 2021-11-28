@@ -20,7 +20,7 @@ I will move to spigot once version 2.0 is released.
 - [x] Fire
 - [ ] Firework rockets
 - [x] Lava
-- [ ] Lightning
+- [x] Lightning
 - [ ] Magma Block
 - [ ] Magic
 - [x] Powered Snow
@@ -40,6 +40,9 @@ I will move to spigot once version 2.0 is released.
 
 ### Resources Used
 https://minecraft.fandom.com/wiki/Death_messages
+
 https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/event/entity/EntityDamageEvent.DamageCause.html
+
 https://www.youtube.com/watch?v=MqYmS3L49wo
+
 https://www.summon-helper.net/
