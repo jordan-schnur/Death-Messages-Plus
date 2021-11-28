@@ -60,13 +60,12 @@ public final class DeathListener implements Listener {
 
         if (e.getEntity().getKiller() != null) {
             loggingContext.addContext("Killer Player: ", e.getEntity().getKiller().getDisplayName());
-        }
 
-        if (lastDamage.getEntity() != null) {
+            if(lastDamage instanceof EntityDamageByEntityEvent) {
+                EntityDamageByEntityEvent entityDamageByEntityEvent = (EntityDamageByEntityEvent) lastDamage;
 
-            if (lastDamage.getEntity() instanceof LivingEntity) {
-                LivingEntity l = (LivingEntity) lastDamage.getEntity();
-                loggingContext.addContext("Living Entity: ", l.getName());
+                LivingEntity l = (LivingEntity) ((EntityDamageByEntityEvent) lastDamage).getDamager();
+                loggingContext.addContext("Killer Entity: ", l.getName());
 
                 if (l.getEquipment() != null && (l.getEquipment().getItemInMainHand() != null || l.getEquipment().getItemInOffHand() != null)) {
                     if (l.getEquipment().getItemInOffHand() != null) {
@@ -82,6 +81,33 @@ public final class DeathListener implements Listener {
                             loggingContext.addContext("Killer Item Main Hand Meta: ", l.getEquipment().getItemInMainHand().getItemMeta().getDisplayName());
                         } else {
                             loggingContext.addContext("Killer Item Main Hand: ", l.getEquipment().getItemInMainHand().getType().toString());
+                        }
+                    }
+                }
+            }
+
+        }
+
+        if (lastDamage.getEntity() != null) {
+
+            if (lastDamage.getEntity() instanceof LivingEntity) {
+                LivingEntity l = (LivingEntity) lastDamage.getEntity();
+                loggingContext.addContext("Living Entity: ", l.getName());
+
+                if (l.getEquipment() != null && (l.getEquipment().getItemInMainHand() != null || l.getEquipment().getItemInOffHand() != null)) {
+                    if (l.getEquipment().getItemInOffHand() != null) {
+                        if(l.getEquipment().getItemInOffHand().hasItemMeta()) {
+                            loggingContext.addContext("Player Item Off Hand Meta: ", l.getEquipment().getItemInOffHand().getItemMeta().getDisplayName());
+                        } else {
+                            loggingContext.addContext("Player Item Off Hand: ", l.getEquipment().getItemInOffHand().getType().toString());
+                        }
+                    }
+
+                    if (l.getEquipment().getItemInMainHand() != null) {
+                        if(l.getEquipment().getItemInMainHand().hasItemMeta()) {
+                            loggingContext.addContext("Player Item Main Hand Meta: ", l.getEquipment().getItemInMainHand().getItemMeta().getDisplayName());
+                        } else {
+                            loggingContext.addContext("Player Item Main Hand: ", l.getEquipment().getItemInMainHand().getType().toString());
                         }
                     }
                 }

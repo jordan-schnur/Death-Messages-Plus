@@ -21,7 +21,7 @@ I will move to spigot once version 2.0 is released.
 - [ ] Firework rockets
 - [x] Lava
 - [x] Lightning
-- [ ] Magma Block
+- [x] Magma Block
 - [ ] Magic
 - [x] Powered Snow
 - [ ] Player and mobs
